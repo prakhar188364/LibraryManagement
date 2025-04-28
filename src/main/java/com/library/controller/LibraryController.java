@@ -71,13 +71,13 @@ public class LibraryController {
     }
 
     @PutMapping("/books/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('LIBRARIAN')")
+    //@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_LIBRARIAN')")
     public Book updateBook(@PathVariable Long id, @RequestBody Book book) {
         return bookService.updateBook(id, book);
     }
 
     @DeleteMapping("/books/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
         bookService.deleteBook(id);
         return ResponseEntity.ok().build();
@@ -85,31 +85,31 @@ public class LibraryController {
 
     // User CRUD Operations
     @PostMapping("/users")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     public User createUser(@RequestBody User user) {
         return userService.saveUser(user);
     }
 
     @GetMapping("/users")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     public List<User> getAllUsers() {
         return userService.findAllUsers();
     }
 
     @GetMapping("/users/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('LIBRARIAN')")
+    //@PreAuthorize("hasRole('ADMIN') or hasRole('LIBRARIAN')")
     public User getUser(@PathVariable Long id) {
         return userService.findById(id);
     }
 
     @PutMapping("/users/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     public User updateUser(@PathVariable Long id, @RequestBody User user) {
         return userService.updateUser(id, user);
     }
 
     @DeleteMapping("/users/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.ok().build();
@@ -117,19 +117,19 @@ public class LibraryController {
 
     // Borrow Operations
     @PostMapping("/borrow")
-    @PreAuthorize("hasRole('MEMBER') or hasRole('LIBRARIAN')")
+    //@PreAuthorize("hasRole('MEMBER') or hasRole('LIBRARIAN')")
     public Borrow borrowBook(@RequestParam Long userId, @RequestParam Long bookId) {
         return borrowService.borrowBook(userId, bookId);
     }
 
     @PutMapping("/borrow/return/{borrowId}")
-    @PreAuthorize("hasRole('MEMBER') or hasRole('LIBRARIAN')")
+    //@PreAuthorize("hasRole('MEMBER') or hasRole('LIBRARIAN')")
     public Borrow returnBook(@PathVariable Long borrowId) {
         return borrowService.returnBook(borrowId);
     }
 
     @GetMapping("/borrow")
-    @PreAuthorize("hasRole('LIBRARIAN')")
+    //@PreAuthorize("hasRole('LIBRARIAN')")
     public List<Borrow> getAllBorrows() {
         return borrowService.findAllBorrows();
     }
