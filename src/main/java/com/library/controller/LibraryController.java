@@ -54,7 +54,7 @@ public class LibraryController {
 
     // Book CRUD Operations
     @PostMapping("/books")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('LIBRARIAN')")
+    //@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_LIBRARIAN')")
     public Book createBook(@RequestBody Book book, Authentication authentication) {
         System.out.println("Creating book: " + authentication.getAuthorities());
         return bookService.saveBook(book);

@@ -2,6 +2,7 @@ package com.library.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -25,6 +26,7 @@ public class SecurityConfig{
                 .csrf().disable() // Disable CSRF if not needed
                 .authorizeHttpRequests()
                 .requestMatchers("/api/library/auth/login").permitAll() // Allow access to this endpoint
+                .requestMatchers(HttpMethod.POST, "/api/library/books").hasAnyAuthority("ROLE_ADMIN", "ROLE_LIBRARIAN", "ADMIN")
                 .anyRequest().authenticated() // Protect all other endpoints
                 .and()
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
