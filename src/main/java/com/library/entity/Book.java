@@ -1,9 +1,13 @@
 package com.library.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "book")
+@Getter
+@Setter
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +28,7 @@ public class Book {
 
     private int availableCopies;
 
-    public Long getBookId() { return bookId; }
+    /*public Long getBookId() { return bookId; }
     public void setBookId(Long bookId) { this.bookId = bookId; }
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
@@ -37,5 +41,5 @@ public class Book {
     public int getTotalCopies() { return totalCopies; }
     public void setTotalCopies(int totalCopies) { this.totalCopies = totalCopies; }
     public int getAvailableCopies() { return availableCopies; }
-    public void setAvailableCopies(int availableCopies) { this.availableCopies = availableCopies; }
+    public void setAvailableCopies(int availableCopies) { this.availableCopies = availableCopies; }*/
 }

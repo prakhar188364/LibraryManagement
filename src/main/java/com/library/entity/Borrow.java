@@ -1,10 +1,15 @@
 package com.library.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "borrow")
+@Getter
+@Setter
 public class Borrow {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +34,7 @@ public class Borrow {
         BORROWED, RETURNED
     }
 
-    public Long getBorrowId() { return borrowId; }
+    /*public Long getBorrowId() { return borrowId; }
     public void setBorrowId(Long borrowId) { this.borrowId = borrowId; }
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }
@@ -40,5 +45,5 @@ public class Borrow {
     public LocalDate getReturnDate() { return returnDate; }
     public void setReturnDate(LocalDate returnDate) { this.returnDate = returnDate; }
     public Status getStatus() { return status; }
-    public void setStatus(Status status) { this.status = status; }
+    public void setStatus(Status status) { this.status = status; }*/
 }

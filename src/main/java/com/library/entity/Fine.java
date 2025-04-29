@@ -1,9 +1,13 @@
 package com.library.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "fine")
+@Getter
+@Setter
 public class Fine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +25,7 @@ public class Fine {
 
     private boolean paidStatus;
 
+    /*
     public Long getFineId() { return fineId; }
     public void setFineId(Long fineId) { this.fineId = fineId; }
     public Borrow getBorrow() { return borrow; }
@@ -30,5 +35,5 @@ public class Fine {
     public double getAmount() { return amount; }
     public void setAmount(double amount) { this.amount = amount; }
     public boolean isPaidStatus() { return paidStatus; }
-    public void setPaidStatus(boolean paidStatus) { this.paidStatus = paidStatus; }
+    public void setPaidStatus(boolean paidStatus) { this.paidStatus = paidStatus; }*/
 }

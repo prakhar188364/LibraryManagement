@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/library")
+@RequestMapping("api/library")
 public class LibraryController {
     @Autowired
     private UserService userService;
@@ -34,6 +34,13 @@ public class LibraryController {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    //health
+    @GetMapping("/health")
+    public ResponseEntity<String> health() {
+        return ResponseEntity.ok("Service is UP");
+    }
+
 
     // Authentication
     @PostMapping("/auth/login")

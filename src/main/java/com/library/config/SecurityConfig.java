@@ -30,7 +30,9 @@ public class SecurityConfig{
         http
                 .csrf().disable() // Disable CSRF if not needed
                 .authorizeHttpRequests()
+
                 .requestMatchers("/api/library/auth/login").permitAll() // Allow access to this endpoint
+                .requestMatchers("/api/library/health").permitAll()
 
                 //books
                 .requestMatchers(HttpMethod.POST, "/api/library/books").hasAnyAuthority("ROLE_ADMIN", "ROLE_LIBRARIAN")
