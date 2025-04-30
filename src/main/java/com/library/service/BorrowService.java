@@ -7,6 +7,7 @@ import com.library.repository.BorrowRepository;
 import com.library.repository.BookRepository;
 import com.library.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,13 @@ public class BorrowService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private FineService fineService;
+
+    public BorrowService(@Lazy FineService fineService) {
+        this.fineService = fineService;
+    }
 
     @Transactional
     public Borrow borrowBook(Long userId, Long bookId) {
@@ -51,6 +59,7 @@ public class BorrowService {
         Book book = borrow.getBook();
         book.setAvailableCopies(book.getAvailableCopies() + 1);
         bookRepository.save(book);
+        fineService.calculateFineForBorrow(borrow);
         return borrowRepository.save(borrow);
     }
 

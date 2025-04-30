@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "fine")
 @Getter
@@ -13,7 +15,7 @@ public class Fine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long fineId;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "borrow_id", nullable = false)
     private Borrow borrow;
 
@@ -21,9 +23,9 @@ public class Fine {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    private double amount;
+    private BigDecimal amount;
 
-    private boolean paidStatus;
+    private boolean paid = false;
 
     /*
     public Long getFineId() { return fineId; }

@@ -1,5 +1,6 @@
 package com.library.config;
 
+import com.library.entity.Fine;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -10,10 +11,9 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Configuration
 //@EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -50,6 +50,12 @@ public class SecurityConfig{
                 .requestMatchers(HttpMethod.POST, "/api/library/borrow").hasAnyAuthority("ROLE_MEMBER", "ROLE_LIBRARIAN")
                 .requestMatchers(HttpMethod.PUT, "/api/library/borrow/return/*").hasAnyAuthority("ROLE_MEMBER", "ROLE_LIBRARIAN")
                 .requestMatchers(HttpMethod.GET, "/api/library/borrow").hasAnyAuthority("ROLE_LIBRARIAN")
+
+                //fines
+                .requestMatchers(HttpMethod.GET, "/api/library/fines").hasAnyAuthority("ROLE_ADMIN", "ROLE_LIBRARIAN")
+                .requestMatchers(HttpMethod.POST, "/api/library/fines").hasAnyAuthority("ROLE_ADMIN", "ROLE_LIBRARIAN")
+                .requestMatchers(HttpMethod.GET, "/api/library/fines/user/*").hasAnyAuthority("ROLE_ADMIN", "ROLE_LIBRARIAN")
+                .requestMatchers(HttpMethod.PUT, "/api/library/fines/*/pay").hasAnyAuthority("ROLE_ADMIN", "ROLE_LIBRARIAN")
 
                 //others
                 .anyRequest().authenticated()// Protect all other endpoints

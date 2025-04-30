@@ -3,11 +3,9 @@ package com.library.controller;
 import com.library.dto.LoginRequest;
 import com.library.entity.Book;
 import com.library.entity.Borrow;
+import com.library.entity.Fine;
 import com.library.entity.User;
-import com.library.service.BookService;
-import com.library.service.BorrowService;
-import com.library.service.JwtService;
-import com.library.service.UserService;
+import com.library.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,6 +23,9 @@ public class LibraryController {
 
     @Autowired
     private BookService bookService;
+
+    @Autowired
+    private FineService fineService;
 
     @Autowired
     private BorrowService borrowService;
@@ -139,5 +140,30 @@ public class LibraryController {
     //@PreAuthorize("hasRole('LIBRARIAN')")
     public List<Borrow> getAllBorrows() {
         return borrowService.findAllBorrows();
+    }
+
+
+    @GetMapping("/fines")
+    //@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_LIBRARIAN')")
+    public List<Fine> getAllFines() {
+        return fineService.getAllFines();
+    }
+
+    @PostMapping("/fines")
+    //@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_LIBRARIAN')")
+    public Fine createFine(@RequestBody Fine fine) {
+        return fineService.saveFine(fine);
+    }
+
+    @GetMapping("/fines/user/{userId}")
+    //@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_LIBRARIAN')")
+    public List<Fine> getFinesByUser(@PathVariable Long userId) {
+        return fineService.getFinesByUser(userId);
+    }
+
+    @PutMapping("/fines/{fineId}/pay")
+    //@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_LIBRARIAN')")
+    public Fine markFineAsPaid(@PathVariable Long fineId) {
+        return fineService.markFineAsPaid(fineId);
     }
 }
